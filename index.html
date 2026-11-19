@@ -275,37 +275,67 @@
     padding:9px 16px;border-radius:14px;font-size:13px;font-weight:700;z-index:90;opacity:0;transition:opacity .3s;pointer-events:none;}
   .toast.on{opacity:1;}
 
-  /* ============ 动态背景：流动渐变 + 漂浮光晕 + 猫爪纹理 + 上浮气泡（层级在文字之下） ============ */
+  /* ============ 动态背景（强化）：流动渐变 + 呼吸光晕 + 漂移猫爪 + 闪烁星光 + 划过流星 + 扩散水波 + 上浮气泡爪印（全部在文字之下） ============ */
   .bgfx{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);
     z-index:-1;overflow:hidden;pointer-events:none;}
-  .bgfx-grad{position:absolute;inset:-20%;
-    background:linear-gradient(135deg,#fff5e8 0%,#ffe4cd 28%,#ffd8e8 52%,#ffeacf 76%,#fff5e8 100%);
-    background-size:260% 260%;animation:bgFlow 22s ease-in-out infinite alternate;}
-  @keyframes bgFlow{0%{background-position:0% 28%;}50%{background-position:100% 72%;}100%{background-position:18% 100%;}}
-  .bgfx-glow{position:absolute;inset:-15%;opacity:.8;mix-blend-mode:screen;
+  .bgfx-grad{position:absolute;inset:-25%;
+    background:linear-gradient(135deg,#fff6e9 0%,#ffd9b0 22%,#ffc9e0 48%,#ffd7a8 74%,#fff0dc 100%);
+    background-size:300% 300%;animation:bgFlow 15s ease-in-out infinite alternate;}
+  @keyframes bgFlow{0%{background-position:0% 20%;}50%{background-position:100% 80%;}100%{background-position:25% 100%;}}
+  .bgfx-glow{position:absolute;inset:-18%;opacity:.95;mix-blend-mode:screen;
     background:
-      radial-gradient(circle at 22% 26%,rgba(255,196,31,.40) 0 56px,transparent 128px),
-      radial-gradient(circle at 80% 32%,rgba(255,122,47,.32) 0 76px,transparent 158px),
-      radial-gradient(circle at 68% 84%,rgba(255,126,179,.32) 0 68px,transparent 146px),
-      radial-gradient(circle at 16% 80%,rgba(255,220,140,.38) 0 52px,transparent 118px);
-    animation:bgGlow 18s ease-in-out infinite alternate;}
-  @keyframes bgGlow{0%{transform:translate3d(-3%,2%,0) scale(1);}100%{transform:translate3d(4%,-4%,0) scale(1.12);}}
-  .bgfx-paws{position:absolute;inset:-40px;opacity:.17;
+      radial-gradient(circle at 20% 22%,rgba(255,190,20,.55) 0 70px,transparent 150px),
+      radial-gradient(circle at 82% 30%,rgba(255,110,40,.48) 0 90px,transparent 180px),
+      radial-gradient(circle at 66% 86%,rgba(255,110,175,.46) 0 82px,transparent 168px),
+      radial-gradient(circle at 14% 82%,rgba(255,215,120,.5) 0 64px,transparent 140px);
+    animation:bgGlow 13s ease-in-out infinite alternate;}
+  @keyframes bgGlow{0%{transform:translate3d(-5%,3%,0) scale(1);}100%{transform:translate3d(6%,-5%,0) scale(1.22);}}
+  .bgfx-paws{position:absolute;inset:-40px;opacity:.22;
     background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E"),
       url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:96px 96px,96px 96px;background-position:0 0,48px 48px;
-    animation:pawDrift 46s linear infinite;}
-  @keyframes pawDrift{from{background-position:0 0,48px 48px;}to{background-position:96px 192px,144px 240px;}}
+    background-size:88px 88px,88px 88px;background-position:0 0,44px 44px;
+    animation:pawDrift 30s linear infinite;}
+  @keyframes pawDrift{from{background-position:0 0,44px 44px;}to{background-position:88px 176px,132px 220px;}}
+  /* 星尘：三层细密光点缓慢明灭、轻微上浮 */
+  .bgfx-stars{position:absolute;inset:-12%;opacity:.6;
+    background-image:
+      radial-gradient(circle,rgba(255,255,255,.95) 0 1.2px,transparent 1.8px),
+      radial-gradient(circle,rgba(255,236,190,.9) 0 1px,transparent 1.6px),
+      radial-gradient(circle,rgba(255,255,255,.8) 0 1.6px,transparent 2.2px);
+    background-size:58px 58px,86px 86px,124px 124px;
+    background-position:7px 11px,31px 47px,63px 25px;
+    animation:starTwinkle 5s ease-in-out infinite alternate;}
+  @keyframes starTwinkle{0%{opacity:.3;transform:translateY(0);}100%{opacity:.85;transform:translateY(-9px);}}
+  /* 四角星光：较大的星星错峰闪烁旋转 */
+  .bgfx-twinkle{position:absolute;width:22px;height:22px;opacity:0;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff6d8' d='M12 0C12 7 7 12 0 12c7 0 12 5 12 12 0-7 5-12 12-12-7 0-12-5-12-12z'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;
+    filter:drop-shadow(0 0 5px rgba(255,224,150,.9));
+    animation:twinkleSpin ease-in-out infinite alternate;}
+  @keyframes twinkleSpin{0%{transform:scale(.5) rotate(-24deg);opacity:0;}50%{opacity:.95;}100%{transform:scale(1.3) rotate(38deg);opacity:.12;}}
+  /* 流星：斜向划过并带柔和尾迹 */
+  .bgfx-meteor{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;
+    box-shadow:0 0 9px 2px rgba(255,240,200,.95);opacity:0;animation:meteorFly linear infinite;}
+  .bgfx-meteor::before{content:"";position:absolute;right:0;top:50%;width:82px;height:2px;
+    transform:translateY(-50%);border-radius:2px;
+    background:linear-gradient(90deg,transparent,rgba(255,235,190,.45) 55%,rgba(255,255,255,.95));}
+  @keyframes meteorFly{0%{transform:translate3d(0,0,0) rotate(38deg);opacity:0;}
+    5%{opacity:1;}20%{opacity:.9;}34%{transform:translate3d(var(--mdx,-380px),var(--mdy,440px),0) rotate(38deg);opacity:0;}100%{opacity:0;}}
+  /* 水波：从下方缓慢扩散的柔和圆环 */
+  .bgfx-ripple{position:absolute;left:var(--rx,50%);top:var(--ry,80%);width:60px;height:60px;
+    margin:-30px 0 0 -30px;border-radius:50%;border:2px solid rgba(255,190,130,.55);
+    box-shadow:0 0 18px rgba(255,190,130,.22),inset 0 0 18px rgba(255,255,255,.32);
+    opacity:0;animation:rippleOut linear infinite;}
+  @keyframes rippleOut{0%{transform:scale(.2);opacity:0;}12%{opacity:.55;}100%{transform:scale(4.6);opacity:0;}}
   .bgfx-bubble{position:absolute;bottom:-44px;border-radius:50%;
     background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.95),rgba(255,214,170,.6) 52%,rgba(255,160,110,.14) 76%,transparent 80%);
     border:1px solid rgba(255,255,255,.72);
-    box-shadow:inset -2px -3px 6px rgba(255,140,90,.16),0 0 10px rgba(255,190,140,.3);
+    box-shadow:inset -2px -3px 6px rgba(255,140,90,.16),0 0 12px rgba(255,190,140,.4);
     animation:rise linear infinite;}
-  @keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0;}10%{opacity:.8;}88%{opacity:.5;}100%{transform:translate3d(var(--dx,18px),-112vh,0) scale(1.14);opacity:0;}}
-  .bgfx-paw{position:absolute;width:30px;height:30px;opacity:.2;
+  @keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0;}10%{opacity:.85;}88%{opacity:.55;}100%{transform:translate3d(var(--dx,18px),-112vh,0) scale(1.18);opacity:0;}}
+  .bgfx-paw{position:absolute;width:30px;height:30px;opacity:.28;
     background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;
     animation:pawFloat linear infinite;}
-  @keyframes pawFloat{0%{transform:translate3d(0,0,0) rotate(-14deg);opacity:0;}12%{opacity:.55;}88%{opacity:.35;}100%{transform:translate3d(var(--px,20px),-118vh,0) rotate(18deg);opacity:0;}}
+  @keyframes pawFloat{0%{transform:translate3d(0,0,0) rotate(-16deg);opacity:0;}12%{opacity:.7;}88%{opacity:.45;}100%{transform:translate3d(var(--px,20px),-118vh,0) rotate(20deg);opacity:0;}}
   .brandPill{display:inline-flex;align-items:center;gap:4px;margin:5px auto 0;font-size:10px;font-weight:900;
     letter-spacing:1.6px;color:#8a521f;background:#ffe4bd;border:2px solid var(--ink);border-radius:999px;
     padding:1px 9px 1px 7px;box-shadow:0 2px 0 rgba(58,42,26,.16);}
@@ -448,35 +478,56 @@
     .logo .lt i,
     .hero-title,.page-title,h1,.logo,.meal-card,.mc,.mealcard,.mascot,
     .nav .tab.on svg,.nav .tab.active svg{animation:none!important;}
-    .bgfx-grad,.bgfx-glow,.bgfx-paws{animation:none!important;}
-    .bgfx-bubble,.bgfx-paw{display:none!important;}
+    .bgfx-grad,.bgfx-glow,.bgfx-paws,.bgfx-stars,.bgfx-twinkle{animation:none!important;}
+    .bgfx-bubble,.bgfx-paw,.bgfx-meteor,.bgfx-ripple{display:none!important;}
   }
 
 </style>
 </head>
 <body>
 
-<!-- 动态背景层：流动渐变 / 光晕 / 猫爪纹理 / 上浮气泡，全部在内容之下 -->
+<!-- 动态背景层：流动渐变 / 光晕 / 猫爪纹理 / 星尘 / 星光 / 流星 / 水波 / 气泡，全部在内容之下 -->
 <div class="bgfx" aria-hidden="true">
   <div class="bgfx-grad"></div>
   <div class="bgfx-glow"></div>
   <div class="bgfx-paws"></div>
-  <i class="bgfx-bubble" style="left:7%;width:26px;height:26px;--dx:24px;animation-duration:17s;animation-delay:-3s"></i>
-  <i class="bgfx-bubble" style="left:19%;width:14px;height:14px;--dx:-18px;animation-duration:13s;animation-delay:-7s"></i>
-  <i class="bgfx-bubble" style="left:31%;width:20px;height:20px;--dx:30px;animation-duration:21s;animation-delay:-12s"></i>
-  <i class="bgfx-bubble" style="left:44%;width:12px;height:12px;--dx:-26px;animation-duration:15s;animation-delay:-2s"></i>
-  <i class="bgfx-bubble" style="left:56%;width:30px;height:30px;--dx:18px;animation-duration:24s;animation-delay:-16s"></i>
-  <i class="bgfx-bubble" style="left:68%;width:16px;height:16px;--dx:-22px;animation-duration:14s;animation-delay:-9s"></i>
-  <i class="bgfx-bubble" style="left:80%;width:22px;height:22px;--dx:28px;animation-duration:19s;animation-delay:-5s"></i>
-  <i class="bgfx-bubble" style="left:91%;width:13px;height:13px;--dx:-16px;animation-duration:16s;animation-delay:-11s"></i>
-  <i class="bgfx-bubble" style="left:12%;width:18px;height:18px;--dx:20px;animation-duration:22s;animation-delay:-18s"></i>
-  <i class="bgfx-bubble" style="left:38%;width:24px;height:24px;--dx:-30px;animation-duration:18s;animation-delay:-4s"></i>
-  <i class="bgfx-bubble" style="left:62%;width:11px;height:11px;--dx:16px;animation-duration:12s;animation-delay:-8s"></i>
-  <i class="bgfx-bubble" style="left:86%;width:28px;height:28px;--dx:-20px;animation-duration:25s;animation-delay:-14s"></i>
-  <i class="bgfx-paw" style="left:10%;width:30px;height:30px;--px:-24px;animation-duration:29s;animation-delay:-6s"></i>
-  <i class="bgfx-paw" style="left:48%;width:26px;height:26px;--px:22px;animation-duration:34s;animation-delay:-19s"></i>
-  <i class="bgfx-paw" style="left:76%;width:32px;height:32px;--px:-18px;animation-duration:31s;animation-delay:-12s"></i>
-  <i class="bgfx-paw" style="left:27%;width:22px;height:22px;--px:26px;animation-duration:27s;animation-delay:-3s"></i>
+  <div class="bgfx-stars"></div>
+  <i class="bgfx-twinkle" style="left:14%;top:12%;width:22px;height:22px;animation-duration:3.2s;animation-delay:-1.2s"></i>
+  <i class="bgfx-twinkle" style="left:33%;top:26%;width:18px;height:18px;animation-duration:2.6s;animation-delay:-2.0s"></i>
+  <i class="bgfx-twinkle" style="left:52%;top:8%;width:24px;height:24px;animation-duration:3.6s;animation-delay:-0.5s"></i>
+  <i class="bgfx-twinkle" style="left:71%;top:20%;width:17px;height:17px;animation-duration:2.8s;animation-delay:-1.8s"></i>
+  <i class="bgfx-twinkle" style="left:86%;top:34%;width:20px;height:20px;animation-duration:3.1s;animation-delay:-2.4s"></i>
+  <i class="bgfx-meteor" style="left:76%;top:6%;--mdx:-380px;--mdy:440px;animation-duration:9s;animation-delay:-2.5s"></i>
+  <i class="bgfx-meteor" style="left:92%;top:16%;--mdx:-340px;--mdy:400px;animation-duration:11s;animation-delay:-7.5s"></i>
+  <i class="bgfx-meteor" style="left:60%;top:2%;--mdx:-420px;--mdy:480px;animation-duration:10s;animation-delay:-12s"></i>
+  <i class="bgfx-ripple" style="--rx:50%;--ry:78%;animation-duration:7s;animation-delay:0s"></i>
+  <i class="bgfx-ripple" style="--rx:26%;--ry:86%;animation-duration:8s;animation-delay:-3.5s"></i>
+  <i class="bgfx-ripple" style="--rx:76%;--ry:84%;animation-duration:9s;animation-delay:-6s"></i>
+  <i class="bgfx-ripple" style="--rx:50%;--ry:92%;animation-duration:10s;animation-delay:-2s"></i>
+  <i class="bgfx-bubble" style="left:4%;width:24px;height:24px;--dx:26px;animation-duration:15s;animation-delay:-0.0s"></i>
+  <i class="bgfx-bubble" style="left:11%;width:13px;height:13px;--dx:-20px;animation-duration:12s;animation-delay:-2.9s"></i>
+  <i class="bgfx-bubble" style="left:18%;width:28px;height:28px;--dx:32px;animation-duration:19s;animation-delay:-5.8s"></i>
+  <i class="bgfx-bubble" style="left:25%;width:10px;height:10px;--dx:-24px;animation-duration:14s;animation-delay:-8.7s"></i>
+  <i class="bgfx-bubble" style="left:32%;width:20px;height:20px;--dx:18px;animation-duration:17s;animation-delay:-11.6s"></i>
+  <i class="bgfx-bubble" style="left:39%;width:15px;height:15px;--dx:-16px;animation-duration:13s;animation-delay:-1.5s"></i>
+  <i class="bgfx-bubble" style="left:46%;width:30px;height:30px;--dx:28px;animation-duration:22s;animation-delay:-17.4s"></i>
+  <i class="bgfx-bubble" style="left:53%;width:12px;height:12px;--dx:-28px;animation-duration:11s;animation-delay:-9.3s"></i>
+  <i class="bgfx-bubble" style="left:60%;width:22px;height:22px;--dx:20px;animation-duration:18s;animation-delay:-5.2s"></i>
+  <i class="bgfx-bubble" style="left:67%;width:9px;height:9px;--dx:-18px;animation-duration:16s;animation-delay:-10.1s"></i>
+  <i class="bgfx-bubble" style="left:74%;width:26px;height:26px;--dx:24px;animation-duration:21s;animation-delay:-8.0s"></i>
+  <i class="bgfx-bubble" style="left:81%;width:14px;height:14px;--dx:-22px;animation-duration:13s;animation-delay:-5.9s"></i>
+  <i class="bgfx-bubble" style="left:88%;width:20px;height:20px;--dx:26px;animation-duration:17s;animation-delay:-0.8s"></i>
+  <i class="bgfx-bubble" style="left:94%;width:11px;height:11px;--dx:-20px;animation-duration:15s;animation-delay:-7.7s"></i>
+  <i class="bgfx-bubble" style="left:8%;width:17px;height:17px;--dx:18px;animation-duration:20s;animation-delay:-0.6s"></i>
+  <i class="bgfx-bubble" style="left:36%;width:27px;height:27px;--dx:-30px;animation-duration:16s;animation-delay:-11.5s"></i>
+  <i class="bgfx-bubble" style="left:58%;width:13px;height:13px;--dx:22px;animation-duration:12s;animation-delay:-10.4s"></i>
+  <i class="bgfx-bubble" style="left:83%;width:25px;height:25px;--dx:-26px;animation-duration:23s;animation-delay:-3.3s"></i>
+  <i class="bgfx-paw" style="left:8%;width:28px;height:28px;--px:-24px;animation-duration:31s;animation-delay:-7s"></i>
+  <i class="bgfx-paw" style="left:24%;width:24px;height:24px;--px:22px;animation-duration:36s;animation-delay:-20s"></i>
+  <i class="bgfx-paw" style="left:40%;width:30px;height:30px;--px:-18px;animation-duration:29s;animation-delay:-13s"></i>
+  <i class="bgfx-paw" style="left:56%;width:26px;height:26px;--px:26px;animation-duration:34s;animation-delay:-25s"></i>
+  <i class="bgfx-paw" style="left:72%;width:28px;height:28px;--px:-22px;animation-duration:32s;animation-delay:-4s"></i>
+  <i class="bgfx-paw" style="left:88%;width:24px;height:24px;--px:20px;animation-duration:38s;animation-delay:-17s"></i>
 </div>
 
 <div class="topbar">
