@@ -22,13 +22,6 @@
     max-width:480px; margin:0 auto; min-height:100vh;
     padding-bottom:84px; position:relative; overflow-x:hidden;
   }
-  body::before{content:"";position:fixed;inset:0;z-index:-1;
-    background:
-      radial-gradient(circle at 12% 18%, #ffe2b8 0 22px, transparent 23px),
-      radial-gradient(circle at 88% 30%, #ffd7c2 0 30px, transparent 31px),
-      radial-gradient(circle at 70% 82%, #ffe9a8 0 18px, transparent 19px),
-      radial-gradient(circle at 22% 78%, #ffd9e0 0 26px, transparent 27px);
-    opacity:.6;}
   .topbar{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:14px 16px 4px;}
   .logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
     line-height:1;cursor:pointer;padding:8px 0 1px;position:relative;}
@@ -282,11 +275,37 @@
     padding:9px 16px;border-radius:14px;font-size:13px;font-weight:700;z-index:90;opacity:0;transition:opacity .3s;pointer-events:none;}
   .toast.on{opacity:1;}
 
-  /* ============ 金索专属主题 · 猫系 ============ */
-  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  /* ============ 动态背景：流动渐变 + 漂浮光晕 + 猫爪纹理 + 上浮气泡（层级在文字之下） ============ */
+  .bgfx{position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,480px);
+    z-index:-1;overflow:hidden;pointer-events:none;}
+  .bgfx-grad{position:absolute;inset:-20%;
+    background:linear-gradient(135deg,#fff5e8 0%,#ffe4cd 28%,#ffd8e8 52%,#ffeacf 76%,#fff5e8 100%);
+    background-size:260% 260%;animation:bgFlow 22s ease-in-out infinite alternate;}
+  @keyframes bgFlow{0%{background-position:0% 28%;}50%{background-position:100% 72%;}100%{background-position:18% 100%;}}
+  .bgfx-glow{position:absolute;inset:-15%;opacity:.8;mix-blend-mode:screen;
+    background:
+      radial-gradient(circle at 22% 26%,rgba(255,196,31,.40) 0 56px,transparent 128px),
+      radial-gradient(circle at 80% 32%,rgba(255,122,47,.32) 0 76px,transparent 158px),
+      radial-gradient(circle at 68% 84%,rgba(255,126,179,.32) 0 68px,transparent 146px),
+      radial-gradient(circle at 16% 80%,rgba(255,220,140,.38) 0 52px,transparent 118px);
+    animation:bgGlow 18s ease-in-out infinite alternate;}
+  @keyframes bgGlow{0%{transform:translate3d(-3%,2%,0) scale(1);}100%{transform:translate3d(4%,-4%,0) scale(1.12);}}
+  .bgfx-paws{position:absolute;inset:-40px;opacity:.17;
     background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E"),
       url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:84px 84px,84px 84px;background-position:0 0,42px 42px;opacity:.2;}
+    background-size:96px 96px,96px 96px;background-position:0 0,48px 48px;
+    animation:pawDrift 46s linear infinite;}
+  @keyframes pawDrift{from{background-position:0 0,48px 48px;}to{background-position:96px 192px,144px 240px;}}
+  .bgfx-bubble{position:absolute;bottom:-44px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.95),rgba(255,214,170,.6) 52%,rgba(255,160,110,.14) 76%,transparent 80%);
+    border:1px solid rgba(255,255,255,.72);
+    box-shadow:inset -2px -3px 6px rgba(255,140,90,.16),0 0 10px rgba(255,190,140,.3);
+    animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0;}10%{opacity:.8;}88%{opacity:.5;}100%{transform:translate3d(var(--dx,18px),-112vh,0) scale(1.14);opacity:0;}}
+  .bgfx-paw{position:absolute;width:30px;height:30px;opacity:.2;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23d99b62' fill-opacity='.42'%3E%3Cellipse cx='36' cy='45' rx='9.5' ry='8'/%3E%3Cellipse cx='25.5' cy='31' rx='4.1' ry='4.8'/%3E%3Cellipse cx='33.5' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='42' cy='27.5' rx='4.1' ry='4.9'/%3E%3Cellipse cx='49.5' cy='31' rx='4.1' ry='4.8'/%3E%3C/g%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;
+    animation:pawFloat linear infinite;}
+  @keyframes pawFloat{0%{transform:translate3d(0,0,0) rotate(-14deg);opacity:0;}12%{opacity:.55;}88%{opacity:.35;}100%{transform:translate3d(var(--px,20px),-118vh,0) rotate(18deg);opacity:0;}}
   .brandPill{display:inline-flex;align-items:center;gap:4px;margin:5px auto 0;font-size:10px;font-weight:900;
     letter-spacing:1.6px;color:#8a521f;background:#ffe4bd;border:2px solid var(--ink);border-radius:999px;
     padding:1px 9px 1px 7px;box-shadow:0 2px 0 rgba(58,42,26,.16);}
@@ -420,14 +439,6 @@
   /* 底部导航图标选中态微动 */
   .nav .tab.on svg,.nav .tab.active svg{animation:navPop .4s cubic-bezier(.2,1.5,.4,1);}
   @keyframes navPop{0%{transform:scale(.8);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
-  /* 背景漂浮小图案缓慢移动（用伪元素，不新增 DOM） */
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-    background-image:radial-gradient(circle at 12% 22%,rgba(255,196,31,.18) 0 8px,transparent 9px),
-                     radial-gradient(circle at 82% 68%,rgba(255,122,47,.14) 0 10px,transparent 11px),
-                     radial-gradient(circle at 28% 82%,rgba(255,126,179,.12) 0 7px,transparent 8px);
-    background-size:220px 220px,300px 300px,260px 260px;
-    animation:ambientDrift 24s linear infinite;}
-  @keyframes ambientDrift{0%{background-position:0 0,0 0,0 0;}100%{background-position:220px 110px,-300px -150px,130px -260px;}}
   .logo .lt i{display:inline-block;animation:letterFloat 3s ease-in-out infinite;}
   .logo .lt i:nth-child(2){animation-delay:.15s;}
   .logo .lt i:nth-child(3){animation-delay:.3s;}
@@ -435,13 +446,38 @@
   @keyframes letterFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px) rotate(-2deg);}}
   @media (prefers-reduced-motion: reduce){
     .logo .lt i,
-    .hero-title,.page-title,h1,.logo,.meal-card,.mc,.mealcard,.mascot,body::before,
+    .hero-title,.page-title,h1,.logo,.meal-card,.mc,.mealcard,.mascot,
     .nav .tab.on svg,.nav .tab.active svg{animation:none!important;}
+    .bgfx-grad,.bgfx-glow,.bgfx-paws{animation:none!important;}
+    .bgfx-bubble,.bgfx-paw{display:none!important;}
   }
 
 </style>
 </head>
 <body>
+
+<!-- 动态背景层：流动渐变 / 光晕 / 猫爪纹理 / 上浮气泡，全部在内容之下 -->
+<div class="bgfx" aria-hidden="true">
+  <div class="bgfx-grad"></div>
+  <div class="bgfx-glow"></div>
+  <div class="bgfx-paws"></div>
+  <i class="bgfx-bubble" style="left:7%;width:26px;height:26px;--dx:24px;animation-duration:17s;animation-delay:-3s"></i>
+  <i class="bgfx-bubble" style="left:19%;width:14px;height:14px;--dx:-18px;animation-duration:13s;animation-delay:-7s"></i>
+  <i class="bgfx-bubble" style="left:31%;width:20px;height:20px;--dx:30px;animation-duration:21s;animation-delay:-12s"></i>
+  <i class="bgfx-bubble" style="left:44%;width:12px;height:12px;--dx:-26px;animation-duration:15s;animation-delay:-2s"></i>
+  <i class="bgfx-bubble" style="left:56%;width:30px;height:30px;--dx:18px;animation-duration:24s;animation-delay:-16s"></i>
+  <i class="bgfx-bubble" style="left:68%;width:16px;height:16px;--dx:-22px;animation-duration:14s;animation-delay:-9s"></i>
+  <i class="bgfx-bubble" style="left:80%;width:22px;height:22px;--dx:28px;animation-duration:19s;animation-delay:-5s"></i>
+  <i class="bgfx-bubble" style="left:91%;width:13px;height:13px;--dx:-16px;animation-duration:16s;animation-delay:-11s"></i>
+  <i class="bgfx-bubble" style="left:12%;width:18px;height:18px;--dx:20px;animation-duration:22s;animation-delay:-18s"></i>
+  <i class="bgfx-bubble" style="left:38%;width:24px;height:24px;--dx:-30px;animation-duration:18s;animation-delay:-4s"></i>
+  <i class="bgfx-bubble" style="left:62%;width:11px;height:11px;--dx:16px;animation-duration:12s;animation-delay:-8s"></i>
+  <i class="bgfx-bubble" style="left:86%;width:28px;height:28px;--dx:-20px;animation-duration:25s;animation-delay:-14s"></i>
+  <i class="bgfx-paw" style="left:10%;width:30px;height:30px;--px:-24px;animation-duration:29s;animation-delay:-6s"></i>
+  <i class="bgfx-paw" style="left:48%;width:26px;height:26px;--px:22px;animation-duration:34s;animation-delay:-19s"></i>
+  <i class="bgfx-paw" style="left:76%;width:32px;height:32px;--px:-18px;animation-duration:31s;animation-delay:-12s"></i>
+  <i class="bgfx-paw" style="left:27%;width:22px;height:22px;--px:26px;animation-duration:27s;animation-delay:-3s"></i>
+</div>
 
 <div class="topbar">
   <div class="logo" id="logo">
