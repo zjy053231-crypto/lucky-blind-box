@@ -1,0 +1,5 @@
+#!/bin/bash
+APP_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+RUN="$APP_DIR/../run.command"
+chmod +x "$RUN" 2>/dev/null
+exec "$RUN" "$@"
