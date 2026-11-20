@@ -45,6 +45,21 @@
   .wallet.low{background:#ffe0e0;border-color:var(--red);color:var(--red);}
   .wallet .set{margin-left:6px;font-size:11px;background:var(--ink);color:#fff;
     border-radius:8px;padding:2px 6px;cursor:pointer;}
+  .sndBtn{flex:none;margin-left:5px;}
+  /* 窄屏收紧顶栏：钱包/语言/音效图标压缩，避免横向溢出 */
+  @media (max-width:420px){
+    .subbar{gap:3px;padding-left:10px;padding-right:10px;}
+    .wallet{padding:4px 7px;gap:2px;font-size:13px;}
+    .wallet .set{margin-left:4px;padding:2px 5px;}
+    .sndBtn{margin-left:3px;padding:2px 4px;font-size:12px;}
+    #langSwitch{margin-left:2px;}
+    #langSwitch b{padding:2px 4px!important;}
+  }
+  /* 极窄屏（≤340px）：隐藏标签与头像，保证钱包/音效/语言不溢出 */
+  @media (max-width:340px){
+    .subbar .tagline,.subbar .ava{display:none;}
+    .wallet{margin-left:0;}
+  }
   .barwrap{height:10px;background:#f0e2cf;border-radius:8px;margin:4px 14px 0;overflow:hidden;border:2px solid var(--ink);}
   .barfill{height:100%;background:linear-gradient(90deg,var(--orange),var(--yellow));transition:width .4s;border-radius:6px;}
   .barfill.low{background:var(--red);}
@@ -462,6 +477,19 @@
   /* 吉祥物轻微浮动 */
   .mascot{animation:mascotFloat 3.2s ease-in-out infinite alternate;}
   @keyframes mascotFloat{from{transform:translateY(0);}to{transform:translateY(-4px) rotate(3deg);}}
+  /* ===== 点击反馈：涟漪 + 果冻回弹 + 星光迸发（层级在内容之上但不挡交互） ===== */
+  #tapFx{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .ripple{position:fixed;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;
+    border:2px solid rgba(255,140,40,.85);background:radial-gradient(circle,rgba(255,196,90,.5),rgba(255,140,40,0) 70%);
+    box-shadow:0 0 12px rgba(255,170,70,.6);animation:rippleGo .55s cubic-bezier(.2,.7,.3,1) forwards;}
+  .ripple.light{border-color:rgba(255,255,255,.9);background:radial-gradient(circle,rgba(255,255,255,.7),rgba(255,220,160,0) 70%);}
+  @keyframes rippleGo{0%{transform:scale(.2);opacity:.9;}100%{transform:scale(9);opacity:0;}}
+  .tspark{position:fixed;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff,#ffd23f 55%,#ff8c3a);box-shadow:0 0 8px #ffbf5a;
+    animation:tsparkGo .5s ease-out forwards;}
+  @keyframes tsparkGo{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--sx),var(--sy)) scale(.2);opacity:0;}}
+  .press-pop{animation:tapPop .34s cubic-bezier(.2,1.7,.4,1)!important;}
+  @keyframes tapPop{0%{transform:scale(1);}32%{transform:scale(.9);}66%{transform:scale(1.06);}100%{transform:scale(1);}}
   /* 按钮按压反馈更明显 */
   button:active{transform:scale(.94);transition:transform .08s;}
   .eat,.pullbtn,.catear{transition:transform .12s ease,box-shadow .12s ease;}
@@ -480,6 +508,7 @@
     .nav .tab.on svg,.nav .tab.active svg{animation:none!important;}
     .bgfx-grad,.bgfx-glow,.bgfx-paws,.bgfx-stars,.bgfx-twinkle{animation:none!important;}
     .bgfx-bubble,.bgfx-paw,.bgfx-meteor,.bgfx-ripple{display:none!important;}
+    .ripple,.tspark,.press-pop{animation:none!important;display:none!important;}
   }
 
 </style>
@@ -735,6 +764,7 @@
 </div>
 
 <div class="danuchan" id="danmuChan"></div>
+<div id="tapFx" aria-hidden="true"></div>
 <div class="toast" id="toast"></div>
 
 <!-- gc3SHb2R0DnATKZoc67Rbr--><!-- 底部导航 -->
@@ -1718,6 +1748,7 @@ document.getElementById("pullBtn").onclick=function(){
       sparkBurst(rar);
       rareBanner(rar);
       burstConfetti();
+      if(window.__feedback) window.__feedback(rar==="l"?"rare":"ok");
     } else {
       sparkBurst("n");
     }
@@ -1972,6 +2003,126 @@ renderNavIcons(); renderTasteChips(); syncWallet(); renderWallet(); renderHome()
 (function boot(){
   // 本地版：无需云端检测，直接从 localStorage 读取（首次会自动种入默认菜品池）
   Promise.all([reloadPool(), reloadRecs()]).then(function(){ syncWallet(); renderWallet(); renderHome(); renderCatalog(); renderRecord(); }).catch(function(err){ console.error("[local] 初始化读取失败:", err); toast("数据加载失败，请刷新重试"); });
+})();
+
+/* ============ 全局点击反馈引擎：涟漪 + 果冻回弹 + 星光 + 音效 + 震动 ============ */
+(function(){
+  var fx=document.getElementById('tapFx');
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sfxOn=true;
+  try{ if(localStorage.getItem('lbb_sfx')==='0') sfxOn=false; }catch(e){}
+  var actx=null;
+  function audio(){
+    if(!sfxOn) return null;
+    try{
+      if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)();
+      if(actx.state==='suspended') actx.resume();
+      return actx;
+    }catch(e){ return null; }
+  }
+  /* 合成短促柔和的点击音，零文件依赖 */
+  function beep(kind){
+    var c=audio(); if(!c) return;
+    var now=c.currentTime;
+    var cfgs = kind==='pull' ? [[520,880,.16,'triangle',.10]]
+             : kind==='rare' ? [[660,990,.11,'sine',.09],[880,1320,.22,'sine',.08]]
+             : kind==='ok'   ? [[520,760,.10,'sine',.07]]
+             : [[420,560,.06,'sine',.045]];
+    cfgs.forEach(function(cfg,i){
+      var t=now+i*.07;
+      var o=c.createOscillator(), g=c.createGain();
+      o.type=cfg[3];
+      o.frequency.setValueAtTime(cfg[0],t);
+      o.frequency.exponentialRampToValueAtTime(cfg[1],t+cfg[2]);
+      g.gain.setValueAtTime(.0001,t);
+      g.gain.exponentialRampToValueAtTime(cfg[4],t+.006);
+      g.gain.exponentialRampToValueAtTime(.0001,t+cfg[2]);
+      o.connect(g); g.connect(c.destination);
+      o.start(t); o.stop(t+cfg[2]+.02);
+    });
+  }
+  window.__sfx=function(kind){ beep(kind); };
+  window.__sfxOn=function(){ return sfxOn; };
+  window.__sfxToggle=function(){
+    sfxOn=!sfxOn;
+    try{ localStorage.setItem('lbb_sfx', sfxOn?'1':'0'); }catch(e){}
+    if(sfxOn) beep('ok');
+    return sfxOn;
+  };
+  function vibrate(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(e){} }
+  function ripple(x,y,light){
+    if(reduce||!fx) return;
+    var r=document.createElement('i'); r.className='ripple'+(light?' light':'');
+    r.style.left=x+'px'; r.style.top=y+'px';
+    fx.appendChild(r); setTimeout(function(){ r.remove(); },580);
+  }
+  function spark(x,y,light){
+    if(reduce||!fx) return;
+    var n=light?7:4;
+    for(var i=0;i<n;i++){
+      var sp=document.createElement('i'); sp.className='tspark';
+      var a=Math.PI*2*i/n+Math.random()*.5, d=26+Math.random()*30;
+      sp.style.left=x+'px'; sp.style.top=y+'px';
+      sp.style.setProperty('--sx',(Math.cos(a)*d).toFixed(1)+'px');
+      sp.style.setProperty('--sy',(Math.sin(a)*d).toFixed(1)+'px');
+      fx.appendChild(sp); (function(el){ setTimeout(function(){ el.remove(); },520); })(sp);
+    }
+  }
+  function pop(el){
+    if(reduce||!el||!el.animate) return;
+    try{ el.animate([{transform:'scale(1)'},{transform:'scale(.93)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],
+      {duration:330,easing:'cubic-bezier(.2,1.6,.4,1)'}); }catch(e){}
+  }
+  /* 只给"轻量可点元素"回弹；卡片本身有入场/翻转动画，避免冲突 */
+  function lightTarget(el){
+    if(!el) return false;
+    var t=el.tagName;
+    if(t==='BUTTON') return true;
+    var c=el.className&&el.className.toString?el.className.toString():'';
+    return /(qbtn|chip|rchip|collapseBtn|tab|langSwitch|sw|del|back|close|seg|add|sharebtn|crave-add|set|catToggle)/i.test(c);
+  }
+  var last=0;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target; if(!el||el.nodeType!==1) return;
+    var btn=el.closest('button,[onclick],.tab,.chip,.rchip,.qbtn,.mealcard,.mc,.collapseBtn,.langSwitch,.sw,.logo,.catToggle,.del,[role=button]');
+    var now=Date.now(); if(now-last<40) return; last=now;
+    var isPull = (el.closest('#pullBtn')||el.closest('.eat'));
+    var kind = isPull?'pull':'tap';
+    beep(kind);
+    vibrate(isPull?[12,30,18]:8);
+    var x=e.clientX||window.innerWidth/2, y=e.clientY||window.innerHeight/2;
+    ripple(x,y,!!isPull);
+    if(isPull) spark(x,y,true);
+    if(lightTarget(btn||el)) pop(btn||el);
+  },{passive:true});
+  /* 成功/确认类操作的加强反馈，供业务代码按需调用 */
+  window.__feedback=function(kind){
+    beep(kind||'ok');
+    vibrate(kind==='rare'?[20,40,20,40,40]:[10,30,16]);
+    if(!reduce&&fx){
+      var x=window.innerWidth/2,y=window.innerHeight*.45;
+      ripple(x,y,true); spark(x,y,kind==='rare');
+    }
+  };
+  /* 静音开关：顶栏紧凑图标，默认开启，点击切换并持久化到 localStorage */
+  try{
+    var sb=document.querySelector('.subbar');
+    if(sb && !document.getElementById('sndBtn')){
+      var snd=document.createElement('b');
+      snd.id='sndBtn'; snd.className='sndBtn';
+      var label=function(on){ return (window.__T?window.__T(on?'音效开':'音效关',on?'Sound on':'Sound off'):(on?'音效开':'音效关')); };
+      snd.textContent=sfxOn?'🔊':'🔇';
+      snd.title=label(sfxOn);
+      snd.style.cssText='flex:none;font-size:13px;line-height:1;padding:3px 6px;cursor:pointer;border:2px solid var(--ink);border-radius:9px;background:var(--card);box-shadow:var(--shadow);';
+      snd.onclick=function(){
+        var on=window.__sfxToggle();
+        snd.textContent=on?'🔊':'🔇';
+        snd.title=label(on);
+        if(window.toast) toast(label(on));
+      };
+      sb.appendChild(snd);
+    }
+  }catch(e){}
 })();
 </script>
 </body>
