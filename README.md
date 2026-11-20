@@ -100,4 +100,4 @@ docs/screenshots/       预览图
 
 ## 许可
 
-MIT
+MIT — 见 [LICENSE](LICENSE)。
