@@ -1,5 +1,7 @@
 # Lucky Blind Box · 干饭盲盒
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)](#运行) [![Local First](https://img.shields.io/badge/local--first-100%25-orange)](#运行) [![macOS](https://img.shields.io/badge/macOS-supported-1f6feb)](#运行) [![Windows](https://img.shields.io/badge/Windows-supported-0078D4)](#运行) [![简体/繁體/EN](https://img.shields.io/badge/语言-简%20繁%20EN-6f42c1)](#功能亮点) [![version](https://img.shields.io/badge/version-v0.1.5-blue)](https://github.com/zjy053231-crypto/lucky-blind-box/releases/latest)
+
 > 吃了吗您 · 金索的干饭盲盒
 
 一个把「今天吃什么」变成抽卡仪式的互动网页应用。把日常最琐碎的选择困难，做成一件有期待感的小事。
