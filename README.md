@@ -1,8 +1,10 @@
 # Lucky Blind Box · 干饭盲盒
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)](#运行) [![Local First](https://img.shields.io/badge/local--first-100%25-orange)](#运行) [![macOS](https://img.shields.io/badge/macOS-supported-1f6feb)](#运行) [![Windows](https://img.shields.io/badge/Windows-supported-0078D4)](#运行) [![简体/繁體/EN](https://img.shields.io/badge/语言-简%20繁%20EN-6f42c1)](#功能亮点) [![version](https://img.shields.io/badge/version-v0.1.5-blue)](https://github.com/zjy053231-crypto/lucky-blind-box/releases/latest)
+[![Live Demo](https://img.shields.io/badge/demo-online-ff7a2f?style=for-the-badge)](https://zjy053231-crypto.github.io/lucky-blind-box/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)](#运行) [![Local First](https://img.shields.io/badge/local--first-100%25-orange)](#运行) [![macOS](https://img.shields.io/badge/macOS-supported-1f6feb)](#运行) [![Windows](https://img.shields.io/badge/Windows-supported-0078D4)](#运行) [![简体/繁體/EN](https://img.shields.io/badge/语言-简%20繁%20EN-6f42c1)](#功能亮点) [![version](https://img.shields.io/badge/version-v0.1.6-blue)](https://github.com/zjy053231-crypto/lucky-blind-box/releases/latest)
 
 > 吃了吗您 · 金索的干饭盲盒
+
+**在线演示 / Live Demo：** <https://zjy053231-crypto.github.io/lucky-blind-box/> —— 点开即玩，无需安装。三语切换：<https://zjy053231-crypto.github.io/lucky-blind-box/?lang=hant>（繁體）、<https://zjy053231-crypto.github.io/lucky-blind-box/?lang=en>（English）。
 
 一个把「今天吃什么」变成抽卡仪式的互动网页应用。把日常最琐碎的选择困难，做成一件有期待感的小事。
 
@@ -42,12 +44,13 @@
 
 单页应用，零第三方依赖、零构建步骤：
 
-- **一个 HTML 文件**承载全部结构、样式、逻辑（约 130KB）。
+- **一个 HTML 文件**承载全部结构、样式、逻辑（约 168KB）。
 - **插画由代码生成**：卡面菜品插画是运行时用 SVG 绘制的（按菜名哈希生成配色与图形），不是图片素材，所以任何新加的菜都有专属卡面。
 - **数据全部本地**：菜品池、吃饭记录、饭票、打卡都存在浏览器的 `localStorage`，不上传任何服务器，离线也能用。
 - **手绘风视觉**：暖橙配色、圆角粗描边、拟物纸质质感；吉祥物插画随界面轻微浮动。
 - **动态背景**：流动的暖色渐变、呼吸式彩色光晕、漂移的猫爪纹理，叠加闪烁星尘与四角星光、不定时划过的流星、缓缓扩散的水波、持续上浮的 18 颗气泡与 6 枚爪印——层次丰富但全部位于内容层之下，不干扰阅读；系统开启「减少动态效果」时自动关闭全部动画。
 - **响应式**：从手机到宽屏都适配。
+- **可直接发布**：仓库挂在 GitHub Pages 上，主页 `<meta>` 含 Open Graph / Twitter Card 元信息，分享到社交软件时能显示标题、描述与预览图；手机上「添加到主屏幕」后以全屏 Web App 方式打开。
 
 宽屏预览：
 
@@ -83,6 +86,7 @@ python3 serve.py 8765
 
 ```
 index.html              全部应用代码（结构 / 样式 / 逻辑 / SVG 插画生成）
+.nojekyll               让 GitHub Pages 原样直出静态文件
 serve.py                零依赖本地静态服务器（只用 Python 标准库）
 run.command             macOS 启动脚本
 run.cmd                 Windows 启动脚本
