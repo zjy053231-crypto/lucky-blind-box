@@ -6,6 +6,10 @@
 
 **在线演示 / Live Demo：** <https://zjy053231-crypto.github.io/lucky-blind-box/> —— 点开即玩，无需安装。三语切换：<https://zjy053231-crypto.github.io/lucky-blind-box/?lang=hant>（繁體）、<https://zjy053231-crypto.github.io/lucky-blind-box/?lang=en>（English）。
 
+> 📱 **建议用手机打开。** 本作品按竖屏手机设计。电脑上也能正常运行，但页面会显示为屏幕中间的一条窄栏，布局看起来会比较奇怪。
+>
+> **Best viewed on a phone.** Designed for a portrait mobile screen. It also runs on desktop, but the layout renders as a narrow column in the middle of a wide window and will look odd.
+
 一个把「今天吃什么」变成抽卡仪式的互动网页应用。把日常最琐碎的选择困难，做成一件有期待感的小事。
 
 ![首页](docs/screenshots/docs_mobile_home.jpg)
@@ -59,6 +63,9 @@
 ## 运行
 
 无需安装依赖，无需 API key，无需联网。需要一个 **Python 3**（仅用来起一个本地静态服务，让 localStorage 和图片导出在所有浏览器下都正常）。
+
+> 界面按手机竖屏设计，**建议在手机上打开**；电脑上可以运行，但布局是屏幕中央的一条窄栏。
+> The interface is designed for a portrait phone screen. Desktop works, but the layout is a narrow centered column.
 
 ### macOS
 
