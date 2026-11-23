@@ -12,6 +12,8 @@
 
 一个把「今天吃什么」变成抽卡仪式的互动网页应用。把日常最琐碎的选择困难，做成一件有期待感的小事。
 
+![抽卡过程](docs/screenshots/demo.gif)
+
 ![首页](docs/screenshots/docs_mobile_home.jpg)
 
 ## 这是什么
