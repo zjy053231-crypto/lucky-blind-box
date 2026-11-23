@@ -1,13 +1,13 @@
 # Lucky Blind Box · 干饭盲盒
 
-[![Live Demo](https://img.shields.io/badge/demo-online-ff7a2f?style=for-the-badge)](https://zjy053231-crypto.github.io/lucky-blind-box/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)](#run--运行) [![Local First](https://img.shields.io/badge/local--first-100%25-orange)](#run--运行) [![macOS](https://img.shields.io/badge/macOS-supported-1f6feb)](#run--运行) [![Windows](https://img.shields.io/badge/Windows-supported-0078D4)](#run--运行) [![简体/繁體/EN](https://img.shields.io/badge/语言-简%20繁%20EN-6f42c1)](#features--功能亮点) [![version](https://img.shields.io/badge/version-v0.1.7-blue)](https://github.com/zjy053231-crypto/lucky-blind-box/releases/latest)
+[![Live Demo](https://img.shields.io/badge/demo-online-ff7a2f?style=for-the-badge)](https://casp1an-hush.github.io/lucky-blind-box/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)](#run--运行) [![Local First](https://img.shields.io/badge/local--first-100%25-orange)](#run--运行) [![macOS](https://img.shields.io/badge/macOS-supported-1f6feb)](#run--运行) [![Windows](https://img.shields.io/badge/Windows-supported-0078D4)](#run--运行) [![简体/繁體/EN](https://img.shields.io/badge/语言-简%20繁%20EN-6f42c1)](#features--功能亮点) [![version](https://img.shields.io/badge/version-v0.1.7-blue)](https://github.com/Casp1an-hush/lucky-blind-box/releases/latest)
 
 > Turn "what to eat" into a gacha ritual — Jin Suo's meal blind box.
 > 把「今天吃什么」变成抽卡仪式 —— 金索的干饭盲盒。
 
-**Live Demo / 在线演示：** <https://zjy053231-crypto.github.io/lucky-blind-box/> — Play instantly, no install needed. 点开即玩，无需安装。Best on mobile / 建议用手机打开。
+**Live Demo / 在线演示：** <https://casp1an-hush.github.io/lucky-blind-box/> — Play instantly, no install needed. 点开即玩，无需安装。Best on mobile / 建议用手机打开。
 
-Language switch / 语言切换：<https://zjy053231-crypto.github.io/lucky-blind-box/?lang=hant> (繁體) · <https://zjy053231-crypto.github.io/lucky-blind-box/?lang=en> (English).
+Language switch / 语言切换：<https://casp1an-hush.github.io/lucky-blind-box/?lang=hant> (繁體) · <https://casp1an-hush.github.io/lucky-blind-box/?lang=en> (English).
 
 > 📱 **Best viewed on a phone.** Designed for a portrait mobile screen. It also runs on desktop, but renders as a narrow centered column and will look odd.
 > **建议用手机打开。** 本作品按竖屏手机设计。电脑上也能运行，但页面会显示为屏幕中间的一条窄栏，看起来会比较奇怪。
